@@ -1,7 +1,7 @@
 ---
 ##################################
 # openldap vars
-#################################3
+##################################
 DC: sasviya     # the name of your OpenLDAP
 OLCROOTPW: ""     # the password used for sasldap and sasadmin
 OLCUSERPW: ""      # the password for the sasuser
