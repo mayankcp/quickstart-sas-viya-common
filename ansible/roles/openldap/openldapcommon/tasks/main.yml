@@ -1,0 +1,25 @@
+---
+
+- debug: var=OLCSUFFIX
+
+- name: ensure {{tmp_folder_targets}} folder exists
+  file:
+    path: "{{tmp_folder_targets}}"
+    state: directory
+    mode: 0777
+
+- name: ensure {{tmp_folder_controller}} folder exists
+  file:
+    path: "{{tmp_folder_controller}}"
+    state: directory
+    mode: 0777
+  delegate_to: 127.0.0.1
+
+- name: Install wget
+  yum: 
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+     - wget
+
+

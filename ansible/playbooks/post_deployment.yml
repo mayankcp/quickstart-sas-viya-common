@@ -1,0 +1,37 @@
+---
+
+
+
+- name: created share backup directory
+  hosts: [SharedVaultServer]
+  become: yes
+  become_user: root
+  roles:
+    - role: post_deployment/create_shared_backup_dir
+  tags:
+    - create_shared_backup_dir
+    - shared_backup_dir
+
+- name: mount share backup directory
+  hosts: [sas_servers]
+  become: yes
+  become_user: root
+  roles:
+    - role: post_deployment/mount_shared_backup_dir
+  tags:
+    - mount_shared_backup_dir
+    - shared_backup_dir
+
+- name: install mysql client
+  hosts: [NeedDatabaseAccessClients]
+  gather_facts: False
+  become: yes
+  become_user: root
+  roles:
+    - role: post_deployment/install_mysql_client
+  tags:
+    - install_mysql_client
+
+
+
+

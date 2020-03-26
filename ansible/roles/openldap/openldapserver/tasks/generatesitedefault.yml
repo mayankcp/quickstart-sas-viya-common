@@ -1,0 +1,13 @@
+---
+
+- name: create sitedefault.yml
+  template:
+    src: sitedefault.yml.j2
+    dest: "./sitedefault.yml"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0600
+  delegate_to: 127.0.0.1
+
+
+

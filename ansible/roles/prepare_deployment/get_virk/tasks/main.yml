@@ -1,0 +1,32 @@
+---
+
+- name: ensure that Git is installed
+  yum: name={{ item }} state=latest
+  with_items:
+  - git
+
+- name: Make sure virk doesn't already exist
+  stat:
+    path: "{{ VIRK_DIR }}"
+  register: stat_result
+
+- name: clone virk
+  vars:
+    VERSION: "{{ VIYA_VERSION }}"
+  git:
+    repo: "{{ VIRK_URL }}"
+    dest: "{{ VIRK_DIR }}"
+    version: "{{VIRK_COMMIT_ID[VERSION]}}"
+    force: yes
+  register: task_result
+  until: task_result | success
+  retries: 10
+  delay: 5
+
+
+
+
+
+
+
+  when: stat_result.stat.exists == False

@@ -1,0 +1,47 @@
+---
+
+- name: Set variables to default
+  set_fact:
+    IS_AWS: False
+    IS_AZURE: False
+    IS_GCP: False
+    CLOUD_PROVIDER: None
+
+- name: Run check for aws
+  script:
+    cmd: |
+      /usr/sbin/dmidecode -s bios-version | tr "[:upper:]" "[:lower:]"
+  register: aws_check
+  become: true
+
+- name: Set AWS if check found AWS
+  set_fact:
+    IS_AWS: True
+    CLOUD_PROVIDER: AWS
+  when: '"amazon" in aws_check.stdout'
+
+- name: Run check for Azure
+  script:
+    cmd: |
+      /usr/sbin/dmidecode -s system-manufacturer | tr "[:upper:]" "[:lower:]"
+  register: azure_check
+  become: true
+
+- name: Set AZURE if check found AZURE
+  set_fact:
+    IS_AZURE: True
+    CLOUD_PROVIDER: AZURE
+  when: '"microsoft corporation" in azure_check.stdout'
+
+- name: Run check for GOOGLE
+  script:
+    cmd: |
+      /usr/sbin/dmidecode -s system-manufacturer | tr "[:upper:]" "[:lower:]"
+  register: google_check
+  become: true
+
+- name: Set GOOGLE if check found GOOGLE
+  set_fact:
+    IS_GCP: True
+    CLOUD_PROVIDER: GOOGLE
+  when: '"google" in google_check.stdout'
