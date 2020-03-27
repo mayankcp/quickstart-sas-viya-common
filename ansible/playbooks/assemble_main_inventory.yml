@@ -11,4 +11,4 @@
     # become: yes
     template:
       dest: "{{ PLAYBOOK_INVENTORY }}"
-      src: "{{ PLAYBOOK_INVENTORY_TEMPLATE }}" 
+      src: "{{ PLAYBOOK_INVENTORY_TEMPLATE }}"
