@@ -44,15 +44,10 @@ sas_servers
 sas_servers
 
 [NeedMountUserlibDrive:children]
-{% if CAS_INSTANCE_COUNT | int > 1 %}
-CASWorkers
-{%- else -%}
-CASControllerServer
-{% endif %}
+services
 
 [NeedMountCASCacheDrive:children]
-CASControllerServer
-CASWorkers
+services
 
 [sas_services:children]
 ViyaServicesServers
